@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SprintPulse | Sprint Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">S<span>✦</span></div><div><b>SprintPulse</b><small>SPRINT INTELLIGENCE</small></div></div>
+    <div class="workspace"><span class="dot"></span> Workspace <span class="muted">⌄</span></div>
+    <p class="nav-label">WORKSPACE</p>
+    <nav id="navigation">
+      <button class="nav-item active" data-page="dashboard"><span>◫</span> Overview</button>
+      <button class="nav-item" data-page="tasks"><span>☷</span> Task Intelligence</button>
+      <button class="nav-item" data-page="simulator"><span>⏱</span> What-if Simulator <i>NEW</i></button>
+      <button class="nav-item" data-page="domino"><span>⌘</span> Domino Map</button>
+      <button class="nav-item" data-page="recovery"><span>✧</span> Recovery Lab</button>
+      <button class="nav-item" data-page="timeline"><span>◷</span> Sprint Time Machine</button>
+      <button class="nav-item" data-page="team"><span>♧</span> Team Fairness</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="ai-card"><div class="ai-icon">✦</div><b>Pulse Intelligence</b><p>Spot risks before they become sprint delays.</p><span class="live"><span class="dot"></span> DEMO ENGINE ACTIVE</span></div>
+      <div class="profile"><div class="avatar">SP</div><div><b>Sprint Team</b><small>Project workspace</small></div><span class="muted">•••</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><div class="crumb">Workspace <span>/</span> <b id="crumb">Overview</b></div><div class="top-actions"><span class="demo-pill"><span class="dot"></span> DEMO DATA</span><button class="icon-btn" id="exportBtn" title="Export CSV">⇩</button><button class="primary-btn" id="addTaskTop">＋ New task</button></div></header>
+
+    <section class="page active" id="page-dashboard">
+      <div class="hero"><div><div class="eyebrow"><span class="pulse"></span> SPRINT INTELLIGENCE CENTER</div><h1>Your sprint, <span>before it slips.</span></h1><p>Predict bottlenecks, simulate decisions, and turn sprint risks into recovery plans.</p></div><div class="hero-orb"><div class="orb-ring ring1"></div><div class="orb-ring ring2"></div><div class="orb-core">✦<small>PULSE AI</small></div></div></div>
+      <div class="section-head"><div><h2>Sprint overview</h2><p>Live calculations from your current demo task data.</p></div><span class="sprint-tag">SPRINT 08 <span>•</span> DAY 10 / 14</span></div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-icon purple">☷</span></div><div class="stat-number" id="totalTasks">0</div><div class="stat-foot">Across this sprint</div><div class="mini-line purple-line"></div></article>
+        <article class="stat-card"><div class="stat-top"><span>Completion</span><span class="stat-icon cyan">↗</span></div><div class="stat-number" id="completion">0%</div><div class="stat-foot">Average task progress</div><div class="progress"><div id="completionBar" class="progress-fill"></div></div></article>
+        <article class="stat-card"><div class="stat-top"><span>High-risk tasks</span><span class="stat-icon pink">⚠</span></div><div class="stat-number" id="highRisk">0</div><div class="stat-foot"><span class="pink-text">Need attention</span> now</div><div class="mini-line pink-line"></div></article>
+        <article class="stat-card"><div class="stat-top"><span>Blocked tasks</span><span class="stat-icon orange">Ⅱ</span></div><div class="stat-number" id="blocked">0</div><div class="stat-foot">Potential sprint delays</div><div class="mini-line orange-line"></div></article>
+      </div>
+      <div class="dashboard-grid">
+        <article class="panel chart-panel"><div class="panel-head"><div><h3>Risk distribution</h3><p>Task risk scores across the sprint</p></div><span class="subtle-tag">RISK RADAR</span></div><div class="chart-wrap"><canvas id="riskChart"></canvas></div><div class="chart-legend"><span><i class="legend-dot green"></i>Low</span><span><i class="legend-dot orange"></i>Medium</span><span><i class="legend-dot pink"></i>High</span></div></article>
+        <article class="panel"><div class="panel-head"><div><h3>Early-warning radar</h3><p>Prioritized signals from your tasks</p></div><span class="live-label"><span class="dot"></span> ACTIVE</span></div><div id="alerts" class="alerts"></div></article>
+      </div>
+      <article class="panel table-panel"><div class="panel-head"><div><h3>Tasks that need attention</h3><p>Focus on the work most likely to delay delivery.</p></div><button class="text-btn" data-goto="tasks">View all tasks →</button></div><div class="table-scroll"><table><thead><tr><th>Task</th><th>Owner</th><th>Progress</th><th>Risk score</th><th>Status</th></tr></thead><tbody id="attentionTable"></tbody></table></div></article>
+      <div class="disclaimer">✦ <b>Prototype note:</b> Risk scores and recommendations are illustrative, rule-based estimates using sample data — not validated AI predictions.</div>
+    </section>
+
+    <section class="page" id="page-tasks">
+      <div class="page-title"><div><div class="eyebrow">SPRINT WORKSPACE</div><h1>Task intelligence</h1><p>Track progress, dependencies, blockers, and risk in one place.</p></div><button class="primary-btn" id="addTask">＋ Add task</button></div>
+      <div class="filter-row"><input id="taskSearch" placeholder="⌕  Search tasks or owners..."><select id="riskFilter"><option value="all">All risk levels</option><option value="High">High risk</option><option value="Medium">Medium risk</option><option value="Low">Low risk</option></select><select id="statusFilter"><option value="all">All statuses</option><option>In Progress</option><option>Blocked</option><option>To Do</option><option>Done</option></select></div>
+      <article class="panel table-panel"><div class="panel-head"><div><h3>Sprint backlog</h3><p id="taskCountLabel">Your sprint tasks</p></div><button class="secondary-btn" id="exportTasks">⇩ Export CSV</button></div><div class="table-scroll"><table><thead><tr><th>Task / ID</th><th>Owner</th><th>Progress</th><th>Due day</th><th>Risk</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tasksTable"></tbody></table></div></article>
+    </section>
+
+    <section class="page" id="page-simulator">
+      <div class="page-title"><div><div class="eyebrow">DECISION INTELLIGENCE</div><h1>What-if simulator</h1><p>Test a sprint decision before making it in real life.</p></div><span class="subtle-tag">SCENARIO LAB</span></div>
+      <div class="sim-grid"><article class="panel form-panel"><div class="panel-head"><div><h3>Build a scenario</h3><p>Change one variable and compare the estimated impact.</p></div><span class="stat-icon purple">⏱</span></div>
+        <label>Task to simulate<select id="scenarioTask"></select></label>
+        <label>Scenario<select id="scenarioType"><option value="delay">Task delayed</option><option value="reassign">Reassign task</option><option value="unblock">Resolve blocker</option><option value="progress">Increase progress</option></select></label>
+        <label id="scenarioValueLabel">Delay duration <span id="scenarioValueText">2 days</span><input type="range" id="scenarioValue" min="1" max="5" value="2"></label>
+        <button class="primary-btn full-btn" id="runScenario">✦ Simulate sprint impact</button>
+        <p class="hint">Simulation uses illustrative estimates, not a trained forecasting model.</p>
+      </article><article class="panel result-panel"><div class="panel-head"><div><h3>Scenario outcome</h3><p>Baseline vs. simulated sprint</p></div><span class="subtle-tag">PREVIEW</span></div><div id="scenarioResult" class="empty-state"><div class="empty-icon">↗</div><h3>Your next decision, visualized.</h3><p>Select a task and run a scenario to see the estimated impact on sprint risk and delivery.</p></div></article></div>
+    </section>
+
+    <section class="page" id="page-domino">
+      <div class="page-title"><div><div class="eyebrow">DEPENDENCY INTELLIGENCE</div><h1>Bottleneck domino map</h1><p>Explore how one blocked task can affect downstream work.</p></div><span class="subtle-tag">DEPENDENCY GRAPH</span></div>
+      <article class="panel"><div class="panel-head"><div><h3>Explore task impact</h3><p>Choose a task to reveal its downstream dependencies.</p></div></div><label class="inline-label">Starting task<select id="dominoTask"></select></label><div id="dominoSummary" class="domino-summary"></div><div id="dominoMap" class="domino-map"></div></article>
+    </section>
+
+    <section class="page" id="page-recovery">
+      <div class="page-title"><div><div class="eyebrow">ACTION INTELLIGENCE</div><h1>Recovery lab</h1><p>Compare practical ways to bring a slipping sprint back on track.</p></div><span class="subtle-tag">RECOVERY PLANS</span></div>
+      <div class="recovery-banner"><div class="recovery-symbol">✦</div><div><h3>From risk to recovery.</h3><p>Plans are generated from task status, progress, and dependency signals.</p></div><button class="primary-btn" id="refreshRecovery">↻ Refresh plans</button></div><div id="recoveryPlans" class="recovery-grid"></div>
+    </section>
+
+    <section class="page" id="page-timeline">
+      <div class="page-title"><div><div class="eyebrow">SPRINT HISTORY SIMULATOR</div><h1>Sprint time machine</h1><p>Replay an illustrative sprint timeline to explore how risk can evolve.</p></div><span class="subtle-tag">REPLAY MODE</span></div>
+      <article class="panel timeline-panel"><div class="panel-head"><div><h3>Sprint replay</h3><p>Move the slider to inspect a simulated sprint day.</p></div><span class="sprint-tag" id="timelineDay">DAY 1</span></div><input type="range" id="timelineSlider" min="1" max="14" value="1"><div class="timeline-labels"><span>Day 1</span><span>Day 7</span><span>Day 14</span></div><div id="timelineResult" class="timeline-result"></div><div id="timelineEvents" class="timeline-events"></div></article>
+    </section>
+
+    <section class="page" id="page-team">
+      <div class="page-title"><div><div class="eyebrow">TEAM CAPACITY INTELLIGENCE</div><h1>Team fairness radar</h1><p>Compare assigned work and remaining effort to spot potential imbalance.</p></div><span class="subtle-tag">WORKLOAD BALANCE</span></div>
+      <div class="fairness-note">ⓘ Workload estimates use sample story points and assumed capacities. They do not measure individual performance.</div><div id="teamGrid" class="team-grid"></div><article class="panel"><div class="panel-head"><div><h3>Balancing suggestion</h3><p>A heuristic suggestion based on remaining story points.</p></div></div><div id="balanceSuggestion" class="balance-suggestion"></div></article>
+    </section>
+  </main>
+</div>
+
+<dialog id="taskDialog">
+  <form id="taskForm">
+    <div class="dialog-head"><div><h2 id="dialogTitle">Add sprint task</h2><p>Keep task information up to date.</p></div><button type="button" class="icon-btn" id="closeDialog">✕</button></div>
+    <input type="hidden" id="editId">
+    <label>Task name<input id="taskName" required maxlength="100" placeholder="e.g. Build analytics dashboard"></label>
+    <div class="form-two"><label>Owner<input id="taskOwner" required placeholder="Team member"></label><label>Due day<input id="taskDue" type="number" min="1" max="30" value="12" required></label></div>
+    <div class="form-two"><label>Progress (%)<input id="taskProgress" type="number" min="0" max="100" value="0" required></label><label>Status<select id="taskStatus"><option>To Do</option><option>In Progress</option><option>Blocked</option><option>Done</option></select></label></div>
+    <label>Dependency<select id="taskDependency"><option value="">No dependency</option></select></label>
+    <label><input type="checkbox" id="taskBlocked"> Task is currently blocked</label>
+    <div class="dialog-actions"><button type="button" class="secondary-btn" id="cancelDialog">Cancel</button><button type="submit" class="primary-btn">Save task</button></div>
+  </form>
+</dialog>
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "name": "User authentication API",
+    "owner": "Aarav",
+    "progress": 85,
+    "due": 11,
+    "status": "In Progress",
+    "dep": null,
+    "blocked": false,
+    "points": 5
+  },
+  {
+    "id": 2,
+    "name": "Analytics dashboard UI",
+    "owner": "Varshini",
+    "progress": 45,
+    "due": 12,
+    "status": "In Progress",
+    "dep": 1,
+    "blocked": false,
+    "points": 8
+  },
+  {
+    "id": 3,
+    "name": "Payment integration",
+    "owner": "Ishita",
+    "progress": 25,
+    "due": 10,
+    "status": "Blocked",
+    "dep": 1,
+    "blocked": true,
+    "points": 8
+  },
+  {
+    "id": 4,
+    "name": "Database optimization",
+    "owner": "Rohan",
+    "progress": 65,
+    "due": 13,
+    "status": "In Progress",
+    "dep": null,
+    "blocked": false,
+    "points": 5
+  },
+  {
+    "id": 5,
+    "name": "Automated test suite",
+    "owner": "Aarav",
+    "progress": 30,
+    "due": 11,
+    "status": "In Progress",
+    "dep": 3,
+    "blocked": false,
+    "points": 5
+  },
+  {
+    "id": 6,
+    "name": "API documentation",
+    "owner": "Meera",
+    "progress": 90,
+    "due": 12,
+    "status": "In Progress",
+    "dep": 1,
+    "blocked": false,
+    "points": 3
+  },
+  {
+    "id": 7,
+    "name": "Mobile responsiveness",
+    "owner": "Varshini",
+    "progress": 20,
+    "due": 13,
+    "status": "To Do",
+    "dep": 2,
+    "blocked": false,
+    "points": 5
+  },
+  {
+    "id": 8,
+    "name": "Design Login Page",
+    "owner": "varshii",
+    "progress": 100,
+    "due": 5,
+    "status": "Done",
+    "dep": null,
+    "blocked": false,
+    "points": 5
+  },
+  {
+    "id": 9,
+    "name": "Develop Login Page",
+    "owner": "varshii",
+    "progress": 20,
+    "due": 8,
+    "status": "In Progress",
+    "dep": 8,
+    "blocked": false,
+    "points": 5
+  }
+]
