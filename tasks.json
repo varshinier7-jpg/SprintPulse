@@ -75,27 +75,5 @@
     "dep": 2,
     "blocked": false,
     "points": 5
-  },
-  {
-    "id": 8,
-    "name": "Design Login Page",
-    "owner": "varshii",
-    "progress": 100,
-    "due": 5,
-    "status": "Done",
-    "dep": null,
-    "blocked": false,
-    "points": 5
-  },
-  {
-    "id": 9,
-    "name": "Develop Login Page",
-    "owner": "varshii",
-    "progress": 20,
-    "due": 8,
-    "status": "In Progress",
-    "dep": 8,
-    "blocked": false,
-    "points": 5
   }
 ]
