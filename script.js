@@ -656,7 +656,7 @@ loadTasksFromBackend();
 async function loadAIPredictions() {
   try {
     const response = await fetch(
-      "http://127.0.0.1:5000/api/predictions"
+    `/api/tasks/${id}`,
     );
 
     if (!response.ok) {
