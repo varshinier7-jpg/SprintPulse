@@ -601,7 +601,7 @@ renderAll();
 
 async function checkPythonBackend() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/api/tasks");
+    const response = await fetch("http://54.206.91.50:5000/api/tasks");
 
     if (!response.ok) {
       throw new Error("Backend request failed");
