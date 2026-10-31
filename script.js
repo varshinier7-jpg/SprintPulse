@@ -60,8 +60,25 @@ function ownerAvatar(owner) {
 }
 
 function progressHTML(value) {
-  const color = value >= 80 ? "var(--green)" : value >= 40 ? "var(--purple)" : "var(--orange)";
-  return `<div class="progress-cell"><div class="progress-label"><span>${value}%</span></div><div class="progress"><div class="progress-fill" style="width:${value}%;background:${color}"></div></div></div>`;
+  const progress = Number(value);
+  const safeValue = Number.isFinite(progress)
+    ? Math.min(100, Math.max(0, progress))
+    : 0;
+
+  const color = safeValue >= 80
+    ? "var(--green)"
+    : safeValue >= 40
+    ? "var(--purple)"
+    : "var(--orange)";
+
+  return `<div class="progress-cell">
+    <div class="progress-label"><span>${safeValue.toFixed(0)}%</span></div>
+    <div class="progress">
+      <div class="progress-fill"
+        style="width:${safeValue}%;background:${color}">
+      </div>
+    </div>
+  </div>`;
 }
 
 function riskBadge(score) {
@@ -72,6 +89,7 @@ function statusBadge(status) {
   return `<span class="status-badge status-${status.replace(/\s+/g,"-")}">${escapeHTML(status)}</span>`;
 }
 
+
 function dependencyName(t) {
   const d = tasks.find(x => x.id === t.dep);
   return d ? d.name : "None";
@@ -79,7 +97,19 @@ function dependencyName(t) {
 
 function renderDashboard() {
   const total = tasks.length;
-  const completed = total ? Math.round(tasks.reduce((sum,t) => sum+t.progress,0)/total) : 0;
+
+const completed = total
+  ? Math.round(
+      tasks.reduce((sum, t) => {
+        const progress = Number(t.progress);
+        const safeProgress = Number.isFinite(progress)
+          ? Math.min(100, Math.max(0, progress))
+          : 0;
+
+        return sum + safeProgress;
+      }, 0) / total
+    )
+  : 0;
   const high = tasks.filter(t => riskScore(t) >= 50).length;
   const blocked = tasks.filter(t => t.blocked || t.status === "Blocked").length;
 
@@ -652,27 +682,4 @@ async function saveTaskToBackend(task, isUpdate) {
 }
 
 loadTasksFromBackend();
-
-async function loadAIPredictions() {
-  try {
-    const response = await fetch(
-    `/api/tasks/${id}`,
-    );
-
-    if (!response.ok) {
-      throw new Error("Could not load AI predictions");
-    }
-
-    const predictions = await response.json();
-
-    window.aiPredictions = predictions;
-renderAll();
-console.log("AI Predictions loaded:", predictions.length, "tasks");
-
-  } catch (error) {
-    console.error("AI prediction error:", error);
-  }
-}
-
-loadAIPredictions();
 
